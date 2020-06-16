@@ -26,3 +26,13 @@
 
 .details {
 }
+
+.favorits_container {
+  position: absolute;
+  right: 15%;
+}
+
+.favorits_item {
+  position: fixed;
+  z-index: 1;
+}

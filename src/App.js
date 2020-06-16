@@ -86,14 +86,13 @@ class App extends Component {
               'Select a book from the list'
             )}
           </div>
-          <div className="favorits">
+          <div className="favorits_container">
             {this.state.favorits.length !== 0
               ? this.state.favorits.map((item, id) => {
                   return (
-                    <div key={id} className="item">
+                    <div key={id} className="favorits_item">
                       <BookItem
                         title={item.volumeInfo.title}
-                        authors={item.volumeInfo.authors}
                         cover={item.volumeInfo.imageLinks.thumbnail}
                       />
                       <button>Delete from favorits</button>
