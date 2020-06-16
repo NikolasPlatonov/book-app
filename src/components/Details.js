@@ -2,7 +2,6 @@ import React from 'react';
 import s from './Details.module.css';
 
 const Details = (props) => {
-  console.log('Details -> props', props);
   return (
     <div className={s.container}>
       <div>
@@ -17,7 +16,7 @@ const Details = (props) => {
       <div>
         <button
           onClick={() => {
-            props.addToFavorits(props.details);
+            props.addToFavorits(props.details, props.details.id);
           }}
         >
           ADD TO FAVORITS

@@ -25,28 +25,45 @@ class App extends Component {
     this.setState({ data: data.items, loading: false });
   }
 
-  detailsOpen = (book, e) => {
+  detailsOpen(book, e) {
     this.setState({
       details: book,
     });
-  };
+  }
 
-  onChange = (e) => {
+  onChange(e) {
     this.setState({
       inputText: e.target.value,
     });
-  };
+  }
 
-  addToFavorits = (book) => {
-    let newArr = [];
-    newArr.push(book);
-    this.setState({
-      favorits: newArr,
+  addToFavorits(e, id) {
+    const newFavoritsArr = [];
+    if (this.state.favorits.length === 0) {
+      newFavoritsArr.push(e);
+    }
+
+    this.state.favorits.filter((i) => {
+      if (i.id !== id) {
+        newFavoritsArr.push(e);
+      }
     });
-  };
+
+    this.setState({
+      favorits: newFavoritsArr,
+    });
+  }
+
+  deleteFromFavorits(id) {
+    const updatedFavorits = this.state.favorits.filter((i) => i.id !== id);
+    this.setState({
+      favorits: updatedFavorits,
+    });
+  }
 
   render() {
     console.log('BOOKS-LIST', this.state.data);
+    console.log('FAVORITS', this.state.favorits);
     return (
       <div className="container">
         <div className="search">
@@ -95,7 +112,13 @@ class App extends Component {
                         title={item.volumeInfo.title}
                         cover={item.volumeInfo.imageLinks.thumbnail}
                       />
-                      <button>Delete from favorits</button>
+                      <button
+                        onClick={() => {
+                          this.deleteFromFavorits(item.id);
+                        }}
+                      >
+                        Delete from favorits
+                      </button>
                     </div>
                   );
                 })
