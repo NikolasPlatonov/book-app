@@ -1,20 +1,12 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
 import '../App.css';
 
-const BookItem = ({ title, authors, cover }) => {
+const BookItem = ({ title, cover }) => {
   return (
-    <Grid>
-      <Grid.Row>
-        <Grid.Column width={8}>
-          <div className="bold-item">{title}</div>
-          <div className="common-item">{authors}</div>
-        </Grid.Column>
-        <Grid.Column width={8}>
-          <img alt="book_cover" width={50} src={cover} />
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
+    <div>
+      <div>{title}</div>
+      <img alt="book_cover" width={40} src={cover} />
+    </div>
   );
 };
 

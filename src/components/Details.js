@@ -14,6 +14,15 @@ const Details = (props) => {
       <div className="bold-details">{props.details.volumeInfo.title}</div>
       <div className="common-details">{props.details.volumeInfo.authors}</div>
       <div className="common-details">{props.details.volumeInfo.publisher}</div>
+      <div>
+        <button
+          onClick={() => {
+            props.addToFavorits(props.details);
+          }}
+        >
+          ADD TO FAVORITS
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import BookItem from './components/BookItem';
 import Details from './components/Details';
-import { Button, Search } from 'semantic-ui-react';
 import autoBind from 'react-autobind';
 
 class App extends Component {
@@ -13,6 +12,7 @@ class App extends Component {
       data: null,
       inputText: '',
       details: null,
+      favorits: [],
     };
     autoBind(this);
   }
@@ -32,8 +32,16 @@ class App extends Component {
   };
 
   onChange = (e) => {
-    return this.setState({
+    this.setState({
       inputText: e.target.value,
+    });
+  };
+
+  addToFavorits = (book) => {
+    let newArr = [];
+    newArr.push(book);
+    this.setState({
+      favorits: newArr,
     });
   };
 
@@ -42,12 +50,13 @@ class App extends Component {
     return (
       <div className="container">
         <div className="search">
-          <Search
+          <input
             type="text"
             value={this.state.inputText}
-            onSearchChange={this.onChange}
+            onChange={this.onChange}
             open={false}
           />
+          <button>Search</button>
         </div>
         <div className="content">
           <div className="books_list">
@@ -69,12 +78,30 @@ class App extends Component {
           </div>
           <div className="details">
             {this.state.details ? (
-              <Details details={this.state.details} />
+              <Details
+                details={this.state.details}
+                addToFavorits={this.addToFavorits}
+              />
             ) : (
               'Select a book from the list'
             )}
           </div>
-          <div className="favorits"></div>
+          <div className="favorits">
+            {this.state.favorits.length !== 0
+              ? this.state.favorits.map((item, id) => {
+                  return (
+                    <div key={id} className="item">
+                      <BookItem
+                        title={item.volumeInfo.title}
+                        authors={item.volumeInfo.authors}
+                        cover={item.volumeInfo.imageLinks.thumbnail}
+                      />
+                      <button>Delete from favorits</button>
+                    </div>
+                  );
+                })
+              : 'Shelf for favorites books'}
+          </div>
         </div>
       </div>
     );
