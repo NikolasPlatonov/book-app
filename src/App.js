@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Item from './components/Item';
+import BookItem from './components/BookItem';
 import Details from './components/Details';
 import Favorits from './components/Favorits';
 import { Grid, Button, Search } from 'semantic-ui-react';
@@ -44,11 +44,13 @@ class App extends Component {
                     this.state.data.map((item, id) => {
                       return (
                         <div key={id} className="item">
-                          {item.volumeInfo.title}
-                          <img
-                            src={item.volumeInfo.imageLinks.thumbnail}
-                            alt="book_cover"
-                          />
+                          <Button className="ui segment">
+                            <BookItem
+                              title={item.volumeInfo.title}
+                              authors={item.volumeInfo.authors}
+                              cover={item.volumeInfo.imageLinks.thumbnail}
+                            />
+                          </Button>
                         </div>
                       );
                     })
