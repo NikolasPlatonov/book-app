@@ -1,23 +1,34 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Image } from 'semantic-ui-react';
+import '../App.css';
 
-const Details = ({ cover, title, authors, country }) => {
+const Details = (props) => {
+  console.log('Details -> props', props);
   return (
     <div className="fixed-details">
       <Grid>
         <Grid.Row>
           <div className="common-details">
-            <img alt="book_cover" width={128} height={128} src={cover} />
+            <Image
+              alt="book_cover"
+              width={100}
+              height={100}
+              src={props.details.volumeInfo.imageLinks.thumbnail}
+            />
           </div>
         </Grid.Row>
         <Grid.Row>
-          <div className="bold-details">{title}</div>
+          <div className="bold-details">{props.details.volumeInfo.title}</div>
         </Grid.Row>
         <Grid.Row>
-          <div className="common-details">{authors}</div>
+          <div className="common-details">
+            {props.details.volumeInfo.authors}
+          </div>
         </Grid.Row>
         <Grid.Row>
-          <div className="common-details">{country}</div>
+          <div className="common-details">
+            {props.details.volumeInfo.publisher}
+          </div>
         </Grid.Row>
       </Grid>
     </div>

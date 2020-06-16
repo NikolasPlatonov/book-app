@@ -3,10 +3,10 @@
   font-weight: bold;
 }
 
-.item {
-  padding-top: 10px;
+/* .item {
+  padding-top: 20px;
   justify-content: stretch;
-}
+} */
 
 .common-item {
   font-size: 11px;
@@ -27,8 +27,7 @@
 }
 
 .searchBar {
-  padding-left: 20px;
-  padding-bottom: 10px;
+  margin: 20px;
   position: fixed;
   z-index: 1;
 }
@@ -36,6 +35,7 @@
 .App {
   padding-top: 20px;
   padding-left: 20px;
+  padding-bottom: 20px;
 }
 
 .fixed-details {
