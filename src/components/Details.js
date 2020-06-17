@@ -9,7 +9,6 @@ const Details = (props) => {
         <img
           alt="book_cover"
           src={props.details.volumeInfo.imageLinks.thumbnail}
-          width={350}
         />
       </div>
       <div className={s.description_container}>
