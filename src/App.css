@@ -25,7 +25,8 @@
 }
 
 .info_text {
-  color: orangered;
+  color: orange;
+  font-weight: bold;
 }
 
 .books_list {
