@@ -33,7 +33,7 @@ class App extends Component {
 
   onChange(e) {
     this.setState({
-      inputText: e.target.value,
+      inputText: e.target.value.substr(0, 15),
     });
   }
 
@@ -65,10 +65,18 @@ class App extends Component {
     }
   }
 
+  filteredData(data) {
+    return data.filter((data) => {
+      return data.volumeInfo.title.indexOf(this.state.inputText) !== -1;
+    });
+  }
+
   render() {
     console.log('BOOKS-LIST', this.state.data);
     console.log('FAVORITS', this.state.favorits);
     console.log('ID', this.state.favoritsId);
+    console.log('INPUT', this.state.inputText);
+
     return (
       <div className="main_container">
         <div className="container">
@@ -81,14 +89,12 @@ class App extends Component {
               open={false}
               onKeyPress={this.keyPressed}
             />
-
-            <button>Search</button>
           </div>
           <div className="content">
             <div className="books_list">
               {this.state.loading || !this.state.data
                 ? 'LOADING...'
-                : this.state.data.map((item, id) => {
+                : this.filteredData(this.state.data).map((item, id) => {
                     return (
                       <div key={id} className="item">
                         <button onClick={(e) => this.detailsOpen(item, e)}>
