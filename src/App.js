@@ -101,29 +101,31 @@ class App extends Component {
                   addToFavorits={this.addToFavorits}
                 />
               ) : (
-                'Select a book from the list'
+                <div className="info_text">Select book from the list</div>
               )}
             </div>
             <div className="favorits_container">
-              {this.state.favorits.length !== 0
-                ? this.state.favorits.map((item, id) => {
-                    return (
-                      <div key={id} className="favorits_item">
-                        <BookItem
-                          title={item.volumeInfo.title}
-                          cover={item.volumeInfo.imageLinks.thumbnail}
-                        />
-                        <button
-                          onClick={() => {
-                            this.deleteFromFavorits(item.id);
-                          }}
-                        >
-                          Delete from favorits
-                        </button>
-                      </div>
-                    );
-                  })
-                : 'Shelf for favorites books'}
+              {this.state.favorits.length !== 0 ? (
+                this.state.favorits.map((item, id) => {
+                  return (
+                    <div key={id} className="favorits_item">
+                      <BookItem
+                        title={item.volumeInfo.title}
+                        cover={item.volumeInfo.imageLinks.thumbnail}
+                      />
+                      <button
+                        onClick={() => {
+                          this.deleteFromFavorits(item.id);
+                        }}
+                      >
+                        Delete from favorits
+                      </button>
+                    </div>
+                  );
+                })
+              ) : (
+                <div className="info_text">Shelf for favorites books</div>
+              )}
             </div>
           </div>
         </div>
