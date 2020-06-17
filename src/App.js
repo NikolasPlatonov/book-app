@@ -59,6 +59,12 @@ class App extends Component {
     });
   }
 
+  keyPressed(event) {
+    if (event.key === 'Enter') {
+      return alert('Serch request!');
+    }
+  }
+
   render() {
     console.log('BOOKS-LIST', this.state.data);
     console.log('FAVORITS', this.state.favorits);
@@ -68,11 +74,14 @@ class App extends Component {
         <div className="container">
           <div className="search">
             <input
-              type="text"
+              type="search"
+              placeholder="Search..."
               value={this.state.inputText}
               onChange={this.onChange}
               open={false}
+              onKeyPress={this.keyPressed}
             />
+
             <button>Search</button>
           </div>
           <div className="content">
