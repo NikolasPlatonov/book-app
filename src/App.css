@@ -1,28 +1,27 @@
 .main_container {
   display: grid;
-  /* grid-template-columns: 1fr; */
+  grid-template-columns: 1fr;
   margin-left: 15vw;
   margin-right: 15vw;
-  margin-top: 3vw;
 }
 
 .container {
   display: grid;
-  /* grid-template-rows: 80px 1fr; */
-  /* justify-content: center; */
+  grid-template-rows: 40px 1fr;
+  padding-top: 16px;
+
+  background-color: gray;
 }
 
 .search {
-  align-content: center;
-  position: fixed;
-  z-index: 1;
+  padding-left: 16px;
+  /* position: fixed;
+  z-index: 1; */
 }
 
 .content {
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
-  margin-top: 60px;
-  /* text-align: left; */
 }
 
 .info_text {
@@ -45,6 +44,7 @@
   background-color: gray;
   text-align: center;
   padding-top: 20px;
+  min-width: 120px;
 }
 
 .favorits_item {
