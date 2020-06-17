@@ -59,15 +59,13 @@ class App extends Component {
     });
   }
 
-  keyPressed(event) {
-    if (event.key === 'Enter') {
-      return alert('Serch request!');
-    }
-  }
-
   filteredData(data) {
-    return data.filter((data) => {
-      return data.volumeInfo.title.indexOf(this.state.inputText) !== -1;
+    return data.filter((text) => {
+      return (
+        text.volumeInfo.title
+          .toLowerCase()
+          .indexOf(this.state.inputText.toLowerCase()) !== -1
+      );
     });
   }
 
@@ -87,7 +85,6 @@ class App extends Component {
               value={this.state.inputText}
               onChange={this.onChange}
               open={false}
-              onKeyPress={this.keyPressed}
             />
           </div>
           <div className="content">

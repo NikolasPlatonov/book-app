@@ -1,6 +1,7 @@
 .main_container {
   display: grid;
   grid-template-columns: 1fr;
+
   margin-left: 15vw;
   margin-right: 15vw;
 }
@@ -9,7 +10,7 @@
   display: grid;
   grid-template-rows: 40px 1fr;
   padding-top: 16px;
-
+  min-height: 1000px;
   background-color: gray;
 }
 
