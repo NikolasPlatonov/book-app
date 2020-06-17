@@ -37,21 +37,19 @@ class App extends Component {
     });
   }
 
-  addToFavorits(e, id) {
-    const newFavoritsArr = [];
+  addToFavorits(book) {
+    const favoritsBooks = [];
+
     if (this.state.favorits.length === 0) {
-      newFavoritsArr.push(e);
+      favoritsBooks.push(book);
+      this.setState({
+        favorits: favoritsBooks,
+      });
+    } else {
+      this.setState({
+        favorits: [...this.state.favorits, book],
+      });
     }
-
-    this.state.favorits.filter((i) => {
-      if (i.id !== id) {
-        newFavoritsArr.push(e);
-      }
-    });
-
-    this.setState({
-      favorits: newFavoritsArr,
-    });
   }
 
   deleteFromFavorits(id) {
@@ -108,11 +106,13 @@ class App extends Component {
               {this.state.favorits.length !== 0 ? (
                 this.state.favorits.map((item, id) => {
                   return (
-                    <div key={id} className="favorits_item">
-                      <BookItem
-                        title={item.volumeInfo.title}
-                        cover={item.volumeInfo.imageLinks.thumbnail}
-                      />
+                    <div key={id}>
+                      <button onClick={(e) => this.detailsOpen(item, e)}>
+                        <BookItem
+                          title={item.volumeInfo.title}
+                          cover={item.volumeInfo.imageLinks.thumbnail}
+                        />
+                      </button>
                       <button
                         onClick={() => {
                           this.deleteFromFavorits(item.id);

@@ -31,7 +31,6 @@
 
 .books_list {
   align-content: center;
-  background-color: gray;
 }
 
 .details {
@@ -43,13 +42,18 @@
 
 .favorits_container {
   background-color: gray;
-  text-align: center;
-  padding-top: 20px;
-  min-width: 120px;
+  /* text-align: center;
+  align-content: center; */
+  /* padding-top: 20px; */
+  /* min-width: 120px; */
 }
 
-.favorits_item {
+/* .favorits_item {
   z-index: 1;
   width: 10vw;
   margin: 1px;
+} */
+
+.delete_btn {
+  font-size: small;
 }

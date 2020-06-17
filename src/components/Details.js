@@ -21,7 +21,7 @@ const Details = (props) => {
         <div className={s.btn}>
           <button
             onClick={() => {
-              props.addToFavorits(props.details, props.details.id);
+              props.addToFavorits(props.details);
             }}
           >
             ADD TO FAVORITS
