@@ -1,0 +1,19 @@
+.container {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  /* justify-content: left; */
+  padding: 5px;
+}
+
+.cover {
+  width: 40px;
+}
+
+.cover img {
+  width: 100%;
+}
+
+.title {
+  text-align: left;
+  font-size: small;
+}

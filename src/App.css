@@ -1,3 +1,11 @@
+.main_container {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  margin-top: 3vw;
+}
+
 .container {
   display: grid;
   grid-template-rows: 80px 1fr;
@@ -8,14 +16,11 @@
   align-content: center;
   position: fixed;
   z-index: 1;
-  margin-top: 20px;
-  margin-left: 20px;
 }
 
 .content {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  margin-left: 40px;
+  grid-template-columns: 1fr 4fr 1fr;
   margin-top: 60px;
 }
 
@@ -29,10 +34,17 @@
 
 .favorits_container {
   position: absolute;
-  right: 15%;
+  right: 26vw;
 }
 
 .favorits_item {
   position: fixed;
   z-index: 1;
+  width: 12vw;
+  border: 1px solid grey;
+  margin: 1px;
+}
+
+.item {
+  justify-content: flex-start;
 }

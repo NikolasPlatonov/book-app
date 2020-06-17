@@ -8,19 +8,24 @@ const Details = (props) => {
         <img
           alt="book_cover"
           src={props.details.volumeInfo.imageLinks.thumbnail}
+          width={350}
         />
       </div>
-      <div className="bold-details">{props.details.volumeInfo.title}</div>
-      <div className="common-details">{props.details.volumeInfo.authors}</div>
-      <div className="common-details">{props.details.volumeInfo.publisher}</div>
       <div>
-        <button
-          onClick={() => {
-            props.addToFavorits(props.details, props.details.id);
-          }}
-        >
-          ADD TO FAVORITS
-        </button>
+        <div className="bold-details">{props.details.volumeInfo.title}</div>
+        <div className="common-details">{props.details.volumeInfo.authors}</div>
+        <div className="common-details">
+          {props.details.volumeInfo.publisher}
+        </div>
+        <div>
+          <button
+            onClick={() => {
+              props.addToFavorits(props.details, props.details.id);
+            }}
+          >
+            ADD TO FAVORITS
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -65,64 +65,66 @@ class App extends Component {
     console.log('BOOKS-LIST', this.state.data);
     console.log('FAVORITS', this.state.favorits);
     return (
-      <div className="container">
-        <div className="search">
-          <input
-            type="text"
-            value={this.state.inputText}
-            onChange={this.onChange}
-            open={false}
-          />
-          <button>Search</button>
-        </div>
-        <div className="content">
-          <div className="books_list">
-            {this.state.loading || !this.state.data
-              ? 'LOADING...'
-              : this.state.data.map((item, id) => {
-                  return (
-                    <div key={id} className="item">
-                      <button onClick={(e) => this.detailsOpen(item, e)}>
+      <div className="main_container">
+        <div className="container">
+          <div className="search">
+            <input
+              type="text"
+              value={this.state.inputText}
+              onChange={this.onChange}
+              open={false}
+            />
+            <button>Search</button>
+          </div>
+          <div className="content">
+            <div className="books_list">
+              {this.state.loading || !this.state.data
+                ? 'LOADING...'
+                : this.state.data.map((item, id) => {
+                    return (
+                      <div key={id} className="item">
+                        <button onClick={(e) => this.detailsOpen(item, e)}>
+                          <BookItem
+                            title={item.volumeInfo.title}
+                            authors={item.volumeInfo.authors}
+                            cover={item.volumeInfo.imageLinks.thumbnail}
+                          />
+                        </button>
+                      </div>
+                    );
+                  })}
+            </div>
+            <div className="details">
+              {this.state.details ? (
+                <Details
+                  details={this.state.details}
+                  addToFavorits={this.addToFavorits}
+                />
+              ) : (
+                'Select a book from the list'
+              )}
+            </div>
+            <div className="favorits_container">
+              {this.state.favorits.length !== 0
+                ? this.state.favorits.map((item, id) => {
+                    return (
+                      <div key={id} className="favorits_item">
                         <BookItem
                           title={item.volumeInfo.title}
-                          authors={item.volumeInfo.authors}
                           cover={item.volumeInfo.imageLinks.thumbnail}
                         />
-                      </button>
-                    </div>
-                  );
-                })}
-          </div>
-          <div className="details">
-            {this.state.details ? (
-              <Details
-                details={this.state.details}
-                addToFavorits={this.addToFavorits}
-              />
-            ) : (
-              'Select a book from the list'
-            )}
-          </div>
-          <div className="favorits_container">
-            {this.state.favorits.length !== 0
-              ? this.state.favorits.map((item, id) => {
-                  return (
-                    <div key={id} className="favorits_item">
-                      <BookItem
-                        title={item.volumeInfo.title}
-                        cover={item.volumeInfo.imageLinks.thumbnail}
-                      />
-                      <button
-                        onClick={() => {
-                          this.deleteFromFavorits(item.id);
-                        }}
-                      >
-                        Delete from favorits
-                      </button>
-                    </div>
-                  );
-                })
-              : 'Shelf for favorites books'}
+                        <button
+                          onClick={() => {
+                            this.deleteFromFavorits(item.id);
+                          }}
+                        >
+                          Delete from favorits
+                        </button>
+                      </div>
+                    );
+                  })
+                : 'Shelf for favorites books'}
+            </div>
           </div>
         </div>
       </div>
