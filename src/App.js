@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import autoBind from 'react-autobind';
+
 import BookItem from './components/BookItem';
 import Details from './components/Details';
-import autoBind from 'react-autobind';
 import Preloader from './common/Preloader';
 
 class App extends Component {
@@ -26,7 +27,7 @@ class App extends Component {
     this.setState({ data: data.items, loading: false });
   }
 
-  detailsOpen(book, e) {
+  detailsOpen(book) {
     this.setState({
       details: book,
     });
@@ -74,11 +75,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('BOOKS-LIST', this.state.data);
-    console.log('FAVORITS', this.state.favorits);
-    console.log('ID', this.state.favoritsId);
-    console.log('INPUT', this.state.inputText);
-
     return (
       <div className="main_container">
         <div className="container">
@@ -100,7 +96,7 @@ class App extends Component {
               ) : (
                 this.filteredData(this.state.data).map((item, id) => {
                   return (
-                    <div key={id} className="item">
+                    <div key={id}>
                       <button onClick={(e) => this.detailsOpen(item, e)}>
                         <BookItem
                           title={item.volumeInfo.title}
