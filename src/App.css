@@ -46,9 +46,15 @@
   background-color: gray;
   text-align: center;
   min-width: 130px;
-  /* z-index: 1; */
 }
 
 .delete_btn {
   font-size: small;
+}
+
+.preloader {
+  position: absolute;
+  right: 47%;
+  bottom: 50%;
+  z-index: 1;
 }

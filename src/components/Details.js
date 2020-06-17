@@ -2,7 +2,6 @@ import React from 'react';
 import s from './Details.module.css';
 
 const Details = (props) => {
-  console.log('Details -> props', props);
   return (
     <div className={s.container}>
       <div className={s.cover_container}>
@@ -18,7 +17,7 @@ const Details = (props) => {
           <div className={s.common}>{props.details.volumeInfo.publisher}</div>
         </div>
 
-        <div className={s.btn}>
+        <div>
           <button
             disabled={props.favoritsId.some((id) => id === props.details.id)}
             onClick={() => {

@@ -9,8 +9,10 @@
 
 .description_container {
   display: grid;
-  grid-template-rows: 1fr 30px;
+  grid-template-rows: 1fr 40px;
   text-align: start;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .cover_container img {

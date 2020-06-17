@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import BookItem from './components/BookItem';
 import Details from './components/Details';
 import autoBind from 'react-autobind';
+import Preloader from './common/Preloader';
 
 class App extends Component {
   constructor(props) {
@@ -64,6 +65,9 @@ class App extends Component {
       return (
         text.volumeInfo.title
           .toLowerCase()
+          .indexOf(this.state.inputText.toLowerCase()) !== -1 ||
+        text.volumeInfo.authors[0]
+          .toLowerCase()
           .indexOf(this.state.inputText.toLowerCase()) !== -1
       );
     });
@@ -89,21 +93,25 @@ class App extends Component {
           </div>
           <div className="content">
             <div className="books_list">
-              {this.state.loading || !this.state.data
-                ? 'LOADING...'
-                : this.filteredData(this.state.data).map((item, id) => {
-                    return (
-                      <div key={id} className="item">
-                        <button onClick={(e) => this.detailsOpen(item, e)}>
-                          <BookItem
-                            title={item.volumeInfo.title}
-                            authors={item.volumeInfo.authors}
-                            cover={item.volumeInfo.imageLinks.thumbnail}
-                          />
-                        </button>
-                      </div>
-                    );
-                  })}
+              {this.state.loading || !this.state.data ? (
+                <div className="preloader">
+                  <Preloader />
+                </div>
+              ) : (
+                this.filteredData(this.state.data).map((item, id) => {
+                  return (
+                    <div key={id} className="item">
+                      <button onClick={(e) => this.detailsOpen(item, e)}>
+                        <BookItem
+                          title={item.volumeInfo.title}
+                          authors={item.volumeInfo.authors}
+                          cover={item.volumeInfo.imageLinks.thumbnail}
+                        />
+                      </button>
+                    </div>
+                  );
+                })
+              )}
             </div>
             <div className="details">
               {this.state.details ? (
