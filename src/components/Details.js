@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Details.module.css';
 
 const Details = (props) => {
+  console.log('Details -> props', props);
   return (
     <div className={s.container}>
       <div className={s.cover_container}>
@@ -20,6 +21,7 @@ const Details = (props) => {
 
         <div className={s.btn}>
           <button
+            disabled={props.favoritsId.some((id) => id === props.details.id)}
             onClick={() => {
               props.addToFavorits(props.details);
             }}

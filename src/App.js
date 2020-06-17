@@ -62,6 +62,7 @@ class App extends Component {
   render() {
     console.log('BOOKS-LIST', this.state.data);
     console.log('FAVORITS', this.state.favorits);
+    console.log('ID', this.state.favoritsId);
     return (
       <div className="main_container">
         <div className="container">
@@ -95,6 +96,7 @@ class App extends Component {
             <div className="details">
               {this.state.details ? (
                 <Details
+                  favoritsId={Array.from(this.state.favorits, ({ id }) => id)}
                   details={this.state.details}
                   addToFavorits={this.addToFavorits}
                 />
