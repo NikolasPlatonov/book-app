@@ -12,7 +12,7 @@ class App extends Component {
     this.state = {
       loading: true,
       data: null,
-      inputText: '',
+      searchText: '',
       details: null,
       favorits: [],
     };
@@ -35,7 +35,7 @@ class App extends Component {
 
   onChange(e) {
     this.setState({
-      inputText: e.target.value.substr(0, 15),
+      searchText: e.target.value.substr(0, 15),
     });
   }
 
@@ -66,10 +66,10 @@ class App extends Component {
       return (
         text.volumeInfo.title
           .toLowerCase()
-          .indexOf(this.state.inputText.toLowerCase()) !== -1 ||
+          .indexOf(this.state.searchText.toLowerCase()) !== -1 ||
         text.volumeInfo.authors[0]
           .toLowerCase()
-          .indexOf(this.state.inputText.toLowerCase()) !== -1
+          .indexOf(this.state.searchText.toLowerCase()) !== -1
       );
     });
   }
@@ -82,7 +82,7 @@ class App extends Component {
             <input
               type="search"
               placeholder="Search..."
-              value={this.state.inputText}
+              value={this.state.searchText}
               onChange={this.onChange}
               open={false}
             />
