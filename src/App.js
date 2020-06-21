@@ -5,12 +5,14 @@ import BookItem from './components/BookItem';
 import Details from './components/Details';
 import Preloader from './common/Preloader';
 import { Form, FormControl, Button } from 'react-bootstrap';
+import axios from 'axios';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      apiKey: 'AIzaSyCxXHAtjJNDPwzJTqHSdwktZmBcKK0F5B4',
       loading: true,
       data: null,
       searchText: '',
@@ -20,23 +22,16 @@ class App extends Component {
     autoBind(this);
   }
 
-  async componentDidMount() {
-    const url =
-      'https://www.googleapis.com/books/v1/volumes?q=pride+prejudice&download=epub&key=AIzaSyCxXHAtjJNDPwzJTqHSdwktZmBcKK0F5B4';
-    const response = await fetch(url);
-    const data = await response.json();
-    this.setState({ data: data.items, loading: false });
-  }
+  // async componentDidMount() {
+  //   const url = `https://www.googleapis.com/books/v1/volumes?q=javascript&key=${this.state.apiKey}`;
+  //   const response = await fetch(url);
+  //   const data = await response.json();
+  //   this.setState({ data: data.items, loading: false });
+  // }
 
   detailsOpen(book) {
     this.setState({
       details: book,
-    });
-  }
-
-  onChange(e) {
-    this.setState({
-      searchText: e.target.value.substr(0, 15),
     });
   }
 
@@ -62,30 +57,38 @@ class App extends Component {
     });
   }
 
-  filteredData(data) {
-    return data.filter((text) => {
-      return (
-        text.volumeInfo.title
-          .toLowerCase()
-          .indexOf(this.state.searchText.toLowerCase()) !== -1 ||
-        text.volumeInfo.authors[0]
-          .toLowerCase()
-          .indexOf(this.state.searchText.toLowerCase()) !== -1
-      );
+  handleChange(e) {
+    this.setState({
+      searchText: e.target.value,
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.searchText}&key=${this.state.apiKey}`;
+
+    axios.get(url).then((data) => {
+      this.setState({
+        data: data.data.items,
+        loading: false,
+      });
     });
   }
 
   render() {
+    console.log('DATA', this.state.data);
+    console.log('SEARCH_TEXT', this.state.searchText);
     return (
       <div className="main_container">
         <div className="container">
           <div className="search">
-            <Form inline>
+            <Form inline onSubmit={this.handleSubmit}>
               <FormControl
-                type="text"
+                type="search"
                 placeholder="Search fro Books"
                 className=" mr-sm-2"
                 autoComplete="off"
+                onChange={this.handleChange}
               />
               <Button type="submit">Submit</Button>
             </Form>
@@ -93,12 +96,10 @@ class App extends Component {
 
           <div className="content">
             <div className="books_list">
-              {this.state.loading || !this.state.data ? (
-                <div className="preloader">
-                  <Preloader />
-                </div>
+              {!this.state.data ? (
+                <div className="info_text">Shelf for searching books</div>
               ) : (
-                this.filteredData(this.state.data).map((item, id) => {
+                this.state.data.map((item, id) => {
                   return (
                     <div key={id} className="book_item">
                       <Button

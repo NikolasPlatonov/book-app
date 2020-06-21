@@ -1,6 +1,12 @@
+.main_container {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  min-height: 300px;
 }
 
 .cover_container {
@@ -9,7 +15,7 @@
 
 .description_container {
   display: grid;
-  grid-template-rows: 1fr 40px;
+  grid-template-rows: 5fr 1fr 1fr;
   text-align: start;
   padding-left: 20px;
   padding-right: 20px;
@@ -27,4 +33,9 @@
 .common {
   font-size: small;
   margin-top: 10px;
+}
+
+.warning {
+  font-weight: bold;
+  color: red;
 }

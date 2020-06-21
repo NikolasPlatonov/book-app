@@ -20,7 +20,7 @@
 
 .content {
   display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-columns: 2fr 6fr 2fr;
   margin-top: 16px;
 }
 
@@ -31,8 +31,9 @@
 
 .books_list {
   align-content: center;
-  min-width: 130px;
+  min-width: 150px;
   margin-right: 1vw;
+  text-align: center;
 }
 
 .book_item {
