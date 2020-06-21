@@ -100,14 +100,17 @@ class App extends Component {
               ) : (
                 this.filteredData(this.state.data).map((item, id) => {
                   return (
-                    <div key={id}>
-                      <button onClick={(e) => this.detailsOpen(item, e)}>
+                    <div key={id} className="book_item">
+                      <Button
+                        variant="light"
+                        onClick={(e) => this.detailsOpen(item, e)}
+                      >
                         <BookItem
                           title={item.volumeInfo.title}
                           authors={item.volumeInfo.authors}
                           cover={item.volumeInfo.imageLinks.thumbnail}
                         />
-                      </button>
+                      </Button>
                     </div>
                   );
                 })
@@ -128,20 +131,24 @@ class App extends Component {
               {this.state.favorits.length !== 0 ? (
                 this.state.favorits.map((item, id) => {
                   return (
-                    <div key={id}>
-                      <button onClick={(e) => this.detailsOpen(item, e)}>
+                    <div key={id} className="book_item">
+                      <Button
+                        variant="light"
+                        onClick={(e) => this.detailsOpen(item, e)}
+                      >
                         <BookItem
                           title={item.volumeInfo.title}
                           cover={item.volumeInfo.imageLinks.thumbnail}
                         />
-                      </button>
-                      <button
+                      </Button>
+                      <Button
+                        variant="danger"
                         onClick={() => {
                           this.deleteFromFavorits(item.id);
                         }}
                       >
-                        Delete from favorits
-                      </button>
+                        <div className="delete_btn">Delete from favorits</div>
+                      </Button>
                     </div>
                   );
                 })

@@ -32,6 +32,11 @@
 .books_list {
   align-content: center;
   min-width: 130px;
+  margin-right: 1vw;
+}
+
+.book_item {
+  margin: 2px;
 }
 
 .details {
@@ -45,10 +50,11 @@
   background-color: gray;
   text-align: center;
   min-width: 130px;
+  margin-left: 1vw;
 }
 
 .delete_btn {
-  font-size: small;
+  font-size: 10px;
 }
 
 .preloader {

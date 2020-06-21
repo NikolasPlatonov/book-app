@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './Details.module.css';
+import { Button } from 'react-bootstrap';
 
 const Details = (props) => {
   return (
@@ -18,14 +19,15 @@ const Details = (props) => {
         </div>
 
         <div>
-          <button
+          <Button
+            variant="success"
             disabled={props.favoritsId.some((id) => id === props.details.id)}
             onClick={() => {
               props.addToFavorits(props.details);
             }}
           >
             ADD TO FAVORITS
-          </button>
+          </Button>
         </div>
       </div>
     </div>
