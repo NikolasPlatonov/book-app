@@ -4,6 +4,7 @@ import autoBind from 'react-autobind';
 import BookItem from './components/BookItem';
 import Details from './components/Details';
 import Preloader from './common/Preloader';
+import { Form, FormControl, Button } from 'react-bootstrap';
 
 class App extends Component {
   constructor(props) {
@@ -79,14 +80,17 @@ class App extends Component {
       <div className="main_container">
         <div className="container">
           <div className="search">
-            <input
-              type="search"
-              placeholder="Search..."
-              value={this.state.searchText}
-              onChange={this.onChange}
-              open={false}
-            />
+            <Form inline>
+              <FormControl
+                type="text"
+                placeholder="Search fro Books"
+                className=" mr-sm-2"
+                autoComplete="off"
+              />
+              <Button type="submit">Submit</Button>
+            </Form>
           </div>
+
           <div className="content">
             <div className="books_list">
               {this.state.loading || !this.state.data ? (
