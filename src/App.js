@@ -74,8 +74,8 @@ class App extends Component {
     });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit() {
+    // e.preventDefault();
 
     const url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.searchText}&key=${this.state.apiKey}&maxResults=${this.state.booksPerPage}&startIndex=${this.state.startIndex}`;
     this.setState({ loading: true });
@@ -85,6 +85,13 @@ class App extends Component {
         totalItems: responce.data.totalItems,
       });
       this.setState({ loading: false });
+    });
+  }
+
+  paginate(pageNum) {
+    this.setState({
+      currentPage: pageNum,
+      startIndex: pageNum * this.state.booksPerPage - this.state.booksPerPage,
     });
   }
 
@@ -108,9 +115,7 @@ class App extends Component {
       );
     }
 
-    const indexOfLastBook = currentPage * booksPerPage;
-    const indexOfFirstBook = indexOfLastBook - booksPerPage;
-    // const currentBooks = data.slice(indexOfLastBook, indexOfFirstBook);
+    console.log('STATE', this.state);
 
     return (
       <div className="main_container">
@@ -128,7 +133,13 @@ class App extends Component {
             </Form>
 
             <div className="pagination">
-              <Pagination totalItems={totalItems} booksPerPage={booksPerPage} />
+              <Pagination
+                totalItems={totalItems}
+                booksPerPage={booksPerPage}
+                paginate={this.paginate}
+                startIndex={startIndex}
+                currentPage={currentPage}
+              />
             </div>
           </div>
 
