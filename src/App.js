@@ -21,7 +21,7 @@ class App extends Component {
       loading: false,
       currentPage: 1,
       booksPerPage: 20,
-      startIndex: 1,
+      startIndex: 0,
       totalItems: null,
     };
     autoBind(this);
@@ -75,32 +75,32 @@ class App extends Component {
   }
 
   handleSubmit() {
-    // e.preventDefault();
-    console.log('DATA DAWNLOADED');
-
     const url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.searchText}&key=${this.state.apiKey}&maxResults=${this.state.booksPerPage}&startIndex=${this.state.startIndex}`;
     this.setState({ loading: true });
     axios.get(url).then((responce) => {
+      console.log('DATA DAWNLOADED', responce.data);
       this.setState({
         data: responce.data.items,
         totalItems: responce.data.totalItems,
       });
+      console.log('STATE', this.state);
       this.setState({ loading: false });
     });
   }
 
   paginate(pageNum) {
-    const nextStartIndex =
-      this.state.startIndex +
-      pageNum * this.state.booksPerPage -
-      this.state.booksPerPage;
-
-    this.setState({
-      currentPage: pageNum,
-      startIndex: nextStartIndex,
+    const newStartIndex =
+      pageNum * this.state.booksPerPage - this.state.booksPerPage;
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.searchText}&key=${this.state.apiKey}&maxResults=${this.state.booksPerPage}&startIndex=${newStartIndex}`;
+    this.setState({ loading: true });
+    axios.get(url).then((responce) => {
+      this.setState({
+        currentPage: pageNum,
+        data: responce.data.items,
+        totalItems: responce.data.totalItems,
+      });
+      this.setState({ loading: false });
     });
-
-    this.handleSubmit();
   }
 
   render() {
@@ -123,8 +123,6 @@ class App extends Component {
       );
     }
 
-    console.log('STATE', this.state);
-
     return (
       <div className="main_container">
         <div className="container">
@@ -132,7 +130,7 @@ class App extends Component {
             <Form inline onSubmit={this.handleSubmit}>
               <FormControl
                 type="search"
-                placeholder="Search fro Books"
+                placeholder="Search..."
                 className=" mr-sm-2"
                 autoComplete="off"
                 onChange={this.handleChange}
@@ -154,7 +152,6 @@ class App extends Component {
 
           <div className="content">
             <div className="books_list">
-              <div className="info_text">&nbsp;TOTAL:&nbsp;{totalItems}</div>
               {!data ? (
                 <div className="info_text">Shelf for searching books</div>
               ) : (

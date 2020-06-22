@@ -1,6 +1,6 @@
 import React from 'react';
 import '../App.css';
-import Pagination from 'react-bootstrap/Pagination';
+import { Button } from 'react-bootstrap';
 
 const PaginationComponent = (props) => {
   let pageCount = Math.ceil(props.totalItems / props.booksPerPage);
@@ -11,19 +11,19 @@ const PaginationComponent = (props) => {
   }
 
   return (
-    <Pagination>
+    <div>
       {pageNumbers.map((num) => (
-        <Pagination.Item
-          key={num}
+        <Button
           active={num === props.currentPage}
+          key={num}
           onClick={() => {
             props.paginate(num);
           }}
         >
           {num}
-        </Pagination.Item>
+        </Button>
       ))}
-    </Pagination>
+    </div>
   );
 };
 
