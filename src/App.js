@@ -27,18 +27,18 @@ class App extends Component {
     autoBind(this);
   }
 
-  componentDidMount() {
-    const url = `https://www.googleapis.com/books/v1/volumes?q=css&key=${this.state.apiKey}&maxResults=${this.state.booksPerPage}&startIndex=${this.state.startIndex}`;
-    const getBooks = async () => {
-      this.setState({ loading: true });
-      const results = await axios.get(url).then((responce) => {
-        return responce.data;
-      });
-      this.setState({ data: results.items, totalItems: results.totalItems });
-      this.setState({ loading: false });
-    };
-    getBooks();
-  }
+  // componentDidMount() {
+  //   const url = `https://www.googleapis.com/books/v1/volumes?q=css&key=${this.state.apiKey}&maxResults=${this.state.booksPerPage}&startIndex=${this.state.startIndex}`;
+  //   const getBooks = async () => {
+  //     this.setState({ loading: true });
+  //     const results = await axios.get(url).then((responce) => {
+  //       return responce.data;
+  //     });
+  //     this.setState({ data: results.items, totalItems: results.totalItems });
+  //     this.setState({ loading: false });
+  //   };
+  //   getBooks();
+  // }
 
   detailsOpen(book) {
     this.setState({
@@ -88,11 +88,13 @@ class App extends Component {
     });
   }
 
-  paginate(pageNum) {
+  paginate(pageNum, e) {
     this.setState({
       currentPage: pageNum,
       startIndex: pageNum * this.state.booksPerPage - this.state.booksPerPage,
     });
+
+    this.handleSubmit();
   }
 
   render() {
@@ -139,6 +141,7 @@ class App extends Component {
                 paginate={this.paginate}
                 startIndex={startIndex}
                 currentPage={currentPage}
+                handleSubmit={this.handleSubmit}
               />
             </div>
           </div>
