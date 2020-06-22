@@ -7,6 +7,7 @@ import Details from './components/Details';
 import Preloader from './common/Preloader';
 import { Form, FormControl, Button } from 'react-bootstrap';
 import axios from 'axios';
+import book_cover from './assets/book_cover.png';
 
 class App extends Component {
   constructor(props) {
@@ -166,9 +167,9 @@ class App extends Component {
                           title={item.volumeInfo.title}
                           authors={item.volumeInfo.authors}
                           cover={
-                            !item.volumeInfo.imageLinks
-                              ? 'Without cover'
-                              : item.volumeInfo.imageLinks.thumbnail
+                            item.volumeInfo.imageLinks
+                              ? item.volumeInfo.imageLinks.thumbnail
+                              : book_cover
                           }
                         />
                       </Button>
@@ -199,7 +200,11 @@ class App extends Component {
                       >
                         <BookItem
                           title={item.volumeInfo.title}
-                          cover={item.volumeInfo.imageLinks.thumbnail}
+                          cover={
+                            item.volumeInfo.imageLinks
+                              ? item.volumeInfo.imageLinks.thumbnail
+                              : book_cover
+                          }
                         />
                       </Button>
                       <Button

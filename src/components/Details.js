@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './Details.module.css';
 import { Button } from 'react-bootstrap';
+import book_cover from './../assets/book_cover.png';
 
 const Details = (props) => {
   return (
@@ -8,10 +9,14 @@ const Details = (props) => {
       <div className={s.container}>
         <div className={s.cover_container}>
           <a href={props.details.accessInfo.webReaderLink} target="_blank">
-            <img
-              alt="book_cover"
-              src={props.details.volumeInfo.imageLinks.thumbnail}
-            />
+            {props.details.volumeInfo.imageLinks ? (
+              <img
+                alt="book_cover"
+                src={props.details.volumeInfo.imageLinks.thumbnail}
+              />
+            ) : (
+              <img alt="book_cover" src={book_cover} />
+            )}
           </a>
         </div>
         <div className={s.description_container}>
