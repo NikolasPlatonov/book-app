@@ -14,27 +14,32 @@ class App extends Component {
 
     this.state = {
       apiKey: 'AIzaSyCxXHAtjJNDPwzJTqHSdwktZmBcKK0F5B4',
-      loading: true,
       data: null,
       searchText: '',
       details: null,
       favorits: [],
+
+      books: [],
+      loading: false,
+      currentPage: 1,
+      booksPerPage: 20,
+      startIndex: 1,
       totalItems: null,
-      pageSize: 20,
     };
     autoBind(this);
   }
 
-  async componentDidMount() {
-    const url = `https://www.googleapis.com/books/v1/volumes?q=javascript&key=${this.state.apiKey}&maxResults=${this.state.pageSize}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log('GET_DATA', data);
-    this.setState({
-      data: data.items,
-      loading: false,
-      totalItems: data.totalItems,
-    });
+  componentDidMount() {
+    const url = `https://www.googleapis.com/books/v1/volumes?q=css&key=${this.state.apiKey}&maxResults=${this.state.booksPerPage}&startIndex=${this.state.startIndex}`;
+    const getBooks = async () => {
+      this.setState({ loading: true });
+      const results = await axios.get(url).then((responce) => {
+        return responce.data;
+      });
+      this.setState({ data: results.items, totalItems: results.totalItems });
+      this.setState({ loading: false });
+    };
+    getBooks();
   }
 
   detailsOpen(book) {
@@ -73,7 +78,7 @@ class App extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.searchText}&key=${this.state.apiKey}`;
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.searchText}&key=${this.state.apiKey}&maxResults=${this.state.booksPerPage}&startIndex=${this.state.startIndex}`;
 
     axios.get(url).then((data) => {
       console.log('DATA', data);
@@ -85,8 +90,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('DATA', this.state.data);
-    console.log('SEARCH_TEXT', this.state.searchText);
     return (
       <div className="main_container">
         <div className="container">
@@ -100,12 +103,13 @@ class App extends Component {
                 onChange={this.handleChange}
               />
               <Button type="submit">Submit</Button>
+              <div className="info_text">
+                &nbsp;TOTAL:&nbsp;{this.state.totalItems}
+              </div>
             </Form>
+
             <div className="pagination">
-              <Pagination
-                totalItems={this.state.totalItems}
-                pageSize={this.state.pageSize}
-              />
+              <Pagination pageSize={this.state.booksPerPage} />
             </div>
           </div>
 
