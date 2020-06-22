@@ -17,7 +17,7 @@ const PaginationComponent = (props) => {
           key={num}
           active={num === props.currentPage}
           onClick={() => {
-            props.paginate(num) && props.handleSubmit();
+            props.paginate(num);
           }}
         >
           {num}

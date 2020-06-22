@@ -76,6 +76,7 @@ class App extends Component {
 
   handleSubmit() {
     // e.preventDefault();
+    console.log('DATA DAWNLOADED');
 
     const url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.searchText}&key=${this.state.apiKey}&maxResults=${this.state.booksPerPage}&startIndex=${this.state.startIndex}`;
     this.setState({ loading: true });
@@ -88,10 +89,15 @@ class App extends Component {
     });
   }
 
-  paginate(pageNum, e) {
+  paginate(pageNum) {
+    const nextStartIndex =
+      this.state.startIndex +
+      pageNum * this.state.booksPerPage -
+      this.state.booksPerPage;
+
     this.setState({
       currentPage: pageNum,
-      startIndex: pageNum * this.state.booksPerPage - this.state.booksPerPage,
+      startIndex: nextStartIndex,
     });
 
     this.handleSubmit();
@@ -163,7 +169,7 @@ class App extends Component {
                           title={item.volumeInfo.title}
                           authors={item.volumeInfo.authors}
                           cover={
-                            !item.volumeInfo.imageLinks.thumbnail
+                            !item.volumeInfo.imageLinks
                               ? 'Without cover'
                               : item.volumeInfo.imageLinks.thumbnail
                           }
