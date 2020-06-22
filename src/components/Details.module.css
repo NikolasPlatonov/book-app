@@ -39,3 +39,13 @@
   font-weight: bold;
   color: red;
 }
+
+.add_btn {
+  margin-top: 5px;
+}
+
+.price {
+  font-size: small;
+  color: green;
+  font-weight: bold;
+}

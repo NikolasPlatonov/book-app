@@ -22,12 +22,12 @@ class App extends Component {
     autoBind(this);
   }
 
-  // async componentDidMount() {
-  //   const url = `https://www.googleapis.com/books/v1/volumes?q=javascript&key=${this.state.apiKey}`;
-  //   const response = await fetch(url);
-  //   const data = await response.json();
-  //   this.setState({ data: data.items, loading: false });
-  // }
+  async componentDidMount() {
+    const url = `https://www.googleapis.com/books/v1/volumes?q=javascript&key=${this.state.apiKey}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    this.setState({ data: data.items, loading: false });
+  }
 
   detailsOpen(book) {
     this.setState({
@@ -68,6 +68,7 @@ class App extends Component {
     const url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.searchText}&key=${this.state.apiKey}`;
 
     axios.get(url).then((data) => {
+      console.log('DATA', data);
       this.setState({
         data: data.data.items,
         loading: false,
@@ -109,7 +110,11 @@ class App extends Component {
                         <BookItem
                           title={item.volumeInfo.title}
                           authors={item.volumeInfo.authors}
-                          cover={item.volumeInfo.imageLinks.thumbnail}
+                          cover={
+                            !item.volumeInfo.imageLinks.thumbnail
+                              ? 'Without cover'
+                              : item.volumeInfo.imageLinks.thumbnail
+                          }
                         />
                       </Button>
                     </div>

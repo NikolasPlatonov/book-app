@@ -7,7 +7,7 @@ const Details = (props) => {
     <div className={s.main_container}>
       <div className={s.container}>
         <div className={s.cover_container}>
-          <a href={props.details.volumeInfo.previewLink} target="_blank">
+          <a href={props.details.accessInfo.webReaderLink} target="_blank">
             <img
               alt="book_cover"
               src={props.details.volumeInfo.imageLinks.thumbnail}
@@ -24,13 +24,15 @@ const Details = (props) => {
           <div>
             {props.details.saleInfo.saleability === 'FOR_SALE' ? (
               <div>
-                <div className={s.common}>
-                  {props.details.saleInfo.listPrice.amount}
+                <div className={s.price}>
+                  {props.details.saleInfo.listPrice.amount}&nbsp;
                   {props.details.saleInfo.listPrice.currencyCode}
                 </div>
-                <a href={props.details.saleInfo.buyLink} target="_blank">
-                  <Button variant="info">Buy now</Button>
-                </a>
+                <div className={s.add_btn}>
+                  <a href={props.details.saleInfo.buyLink} target="_blank">
+                    <Button variant="info">Buy now</Button>
+                  </a>
+                </div>
               </div>
             ) : (
               <div className={s.warning}>
@@ -39,7 +41,7 @@ const Details = (props) => {
             )}
           </div>
 
-          <div>
+          <div className={s.add_btn}>
             <Button
               variant="success"
               disabled={props.favoritsId.some((id) => id === props.details.id)}
