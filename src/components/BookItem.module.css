@@ -5,12 +5,11 @@
 
 .container {
   display: grid;
-  grid-template-columns: 50px 1fr;
-  justify-content: space-around;
+  grid-template-columns: 40px 1fr;
 }
 
 .cover {
-  width: 60px;
+  width: 50px;
 }
 
 .cover img {
@@ -20,6 +19,4 @@
 .title {
   text-align: right;
   font-size: 12px;
-  padding-left: 20px;
-  word-wrap: normal;
 }
