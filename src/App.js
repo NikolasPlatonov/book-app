@@ -28,19 +28,6 @@ class App extends Component {
     autoBind(this);
   }
 
-  // componentDidMount() {
-  //   const url = `https://www.googleapis.com/books/v1/volumes?q=css&key=${this.state.apiKey}&maxResults=${this.state.booksPerPage}&startIndex=${this.state.startIndex}`;
-  //   const getBooks = async () => {
-  //     this.setState({ loading: true });
-  //     const results = await axios.get(url).then((responce) => {
-  //       return responce.data;
-  //     });
-  //     this.setState({ data: results.items, totalItems: results.totalItems });
-  //     this.setState({ loading: false });
-  //   };
-  //   getBooks();
-  // }
-
   detailsOpen(book) {
     this.setState({
       details: book,
@@ -79,12 +66,10 @@ class App extends Component {
     const url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.searchText}&key=${this.state.apiKey}&maxResults=${this.state.booksPerPage}&startIndex=${this.state.startIndex}`;
     this.setState({ loading: true });
     axios.get(url).then((responce) => {
-      console.log('DATA DAWNLOADED', responce.data);
       this.setState({
         data: responce.data.items,
         totalItems: responce.data.totalItems,
       });
-      console.log('STATE', this.state);
       this.setState({ loading: false });
     });
   }
@@ -150,7 +135,6 @@ class App extends Component {
               />
             </div>
           </div>
-
           <div className="content">
             <div className="books_list">
               {!data ? (

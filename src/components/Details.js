@@ -8,7 +8,11 @@ const Details = (props) => {
     <div className={s.main_container}>
       <div className={s.container}>
         <div className={s.cover_container}>
-          <a href={props.details.accessInfo.webReaderLink} target="_blank">
+          <a
+            href={props.details.accessInfo.webReaderLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {props.details.volumeInfo.imageLinks ? (
               <img
                 alt="book_cover"
@@ -34,7 +38,11 @@ const Details = (props) => {
                   {props.details.saleInfo.listPrice.currencyCode}
                 </div>
                 <div className={s.add_btn}>
-                  <a href={props.details.saleInfo.buyLink} target="_blank">
+                  <a
+                    href={props.details.saleInfo.buyLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <Button variant="info">Buy now</Button>
                   </a>
                 </div>
