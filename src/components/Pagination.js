@@ -2,20 +2,27 @@ import React from 'react';
 import '../App.css';
 import Pagination from 'react-bootstrap/Pagination';
 
-let active = 2;
-let items = [];
-for (let number = 1; number <= 5; number++) {
-  items.push(
-    <Pagination.Item key={number} active={number === active}>
-      {number}
-    </Pagination.Item>
-  );
-}
+const PaginationComponent = (props) => {
+  console.log('PaginationComponent -> props', props);
+  let pageCount = Math.ceil(props.totalItems / props.pageSize);
+  let pages = [];
+  for (let i = 1; i <= pageCount; i++) {
+    pages.push(
+      <Pagination.Item key={i} active={i === pageCount}>
+        {i}
+      </Pagination.Item>
+    );
+  }
 
-const PaginationComponent = () => {
   return (
     <div>
-      <Pagination size="sm">{items}</Pagination>
+      <Pagination size="sm">
+        <Pagination.First />
+        <Pagination.Prev />
+        {pages}
+        <Pagination.Next />
+        <Pagination.Last />
+      </Pagination>
     </div>
   );
 };

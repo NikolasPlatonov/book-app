@@ -19,16 +19,22 @@ class App extends Component {
       searchText: '',
       details: null,
       favorits: [],
+      totalItems: null,
+      pageSize: 20,
     };
     autoBind(this);
   }
 
   async componentDidMount() {
-    const url = `https://www.googleapis.com/books/v1/volumes?q=javascript&key=${this.state.apiKey}`;
+    const url = `https://www.googleapis.com/books/v1/volumes?q=javascript&key=${this.state.apiKey}&maxResults=${this.state.pageSize}`;
     const response = await fetch(url);
     const data = await response.json();
-    console.log('TOTAL ITEMS', data);
-    this.setState({ data: data.items, loading: false });
+    console.log('GET_DATA', data);
+    this.setState({
+      data: data.items,
+      loading: false,
+      totalItems: data.totalItems,
+    });
   }
 
   detailsOpen(book) {
@@ -96,7 +102,10 @@ class App extends Component {
               <Button type="submit">Submit</Button>
             </Form>
             <div className="pagination">
-              <Pagination />
+              <Pagination
+                totalItems={this.state.totalItems}
+                pageSize={this.state.pageSize}
+              />
             </div>
           </div>
 
