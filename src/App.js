@@ -18,8 +18,6 @@ class App extends Component {
       searchText: '',
       details: null,
       favorits: [],
-
-      books: [],
       loading: false,
       currentPage: 1,
       booksPerPage: 20,
@@ -78,18 +76,42 @@ class App extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.searchText}&key=${this.state.apiKey}&maxResults=${this.state.booksPerPage}&startIndex=${this.state.startIndex}`;
 
-    axios.get(url).then((data) => {
-      console.log('DATA', data);
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.searchText}&key=${this.state.apiKey}&maxResults=${this.state.booksPerPage}&startIndex=${this.state.startIndex}`;
+    this.setState({ loading: true });
+    axios.get(url).then((responce) => {
       this.setState({
-        data: data.data.items,
-        loading: false,
+        data: responce.data.items,
+        totalItems: responce.data.totalItems,
       });
+      this.setState({ loading: false });
     });
   }
 
   render() {
+    const {
+      data,
+      details,
+      favorits,
+      loading,
+      currentPage,
+      booksPerPage,
+      startIndex,
+      totalItems,
+    } = this.state;
+
+    if (loading) {
+      return (
+        <div className="preloader">
+          <Preloader />
+        </div>
+      );
+    }
+
+    const indexOfLastBook = currentPage * booksPerPage;
+    const indexOfFirstBook = indexOfLastBook - booksPerPage;
+    // const currentBooks = data.slice(indexOfLastBook, indexOfFirstBook);
+
     return (
       <div className="main_container">
         <div className="container">
@@ -103,22 +125,20 @@ class App extends Component {
                 onChange={this.handleChange}
               />
               <Button type="submit">Submit</Button>
-              <div className="info_text">
-                &nbsp;TOTAL:&nbsp;{this.state.totalItems}
-              </div>
             </Form>
 
             <div className="pagination">
-              <Pagination pageSize={this.state.booksPerPage} />
+              <Pagination totalItems={totalItems} booksPerPage={booksPerPage} />
             </div>
           </div>
 
           <div className="content">
             <div className="books_list">
-              {!this.state.data ? (
+              <div className="info_text">&nbsp;TOTAL:&nbsp;{totalItems}</div>
+              {!data ? (
                 <div className="info_text">Shelf for searching books</div>
               ) : (
-                this.state.data.map((item, id) => {
+                data.map((item, id) => {
                   return (
                     <div key={id} className="book_item">
                       <Button
@@ -141,10 +161,10 @@ class App extends Component {
               )}
             </div>
             <div className="details">
-              {this.state.details ? (
+              {details ? (
                 <Details
-                  favoritsId={Array.from(this.state.favorits, ({ id }) => id)}
-                  details={this.state.details}
+                  favoritsId={Array.from(favorits, ({ id }) => id)}
+                  details={details}
                   addToFavorits={this.addToFavorits}
                 />
               ) : (
@@ -152,8 +172,8 @@ class App extends Component {
               )}
             </div>
             <div className="favorits_container">
-              {this.state.favorits.length !== 0 ? (
-                this.state.favorits.map((item, id) => {
+              {favorits.length !== 0 ? (
+                favorits.map((item, id) => {
                   return (
                     <div key={id} className="book_item">
                       <Button

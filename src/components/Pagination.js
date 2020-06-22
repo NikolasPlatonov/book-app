@@ -4,10 +4,10 @@ import Pagination from 'react-bootstrap/Pagination';
 
 const PaginationComponent = (props) => {
   console.log('PaginationComponent -> props', props);
-  let pageCount = Math.ceil(props.totalItems / props.pageSize);
-  let pages = [];
+  let pageCount = Math.ceil(props.totalItems / props.booksPerPage);
+  let pageNumbers = [];
   for (let i = 1; i <= pageCount; i++) {
-    pages.push(
+    pageNumbers.push(
       <Pagination.Item key={i} active={i === pageCount}>
         {i}
       </Pagination.Item>
@@ -16,13 +16,7 @@ const PaginationComponent = (props) => {
 
   return (
     <div>
-      <Pagination size="sm">
-        <Pagination.First />
-        <Pagination.Prev />
-        {pages}
-        <Pagination.Next />
-        <Pagination.Last />
-      </Pagination>
+      <Pagination size="sm"></Pagination>
     </div>
   );
 };
