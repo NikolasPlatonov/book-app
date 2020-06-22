@@ -1,18 +1,16 @@
 .main_container {
   display: grid;
-  grid-template-columns: 1fr;
-  max-width: 100px;
-  justify-content: center;
+  grid-template-rows: 1fr;
 }
 
 .container {
   display: grid;
   grid-template-columns: 50px 1fr;
-  align-content: center;
+  justify-content: space-around;
 }
 
 .cover {
-  width: 40px;
+  width: 60px;
 }
 
 .cover img {
@@ -20,7 +18,8 @@
 }
 
 .title {
-  text-align: left;
-  font-size: 11px;
-  word-wrap: inherit;
+  text-align: right;
+  font-size: 12px;
+  padding-left: 20px;
+  word-wrap: normal;
 }
