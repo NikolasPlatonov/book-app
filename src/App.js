@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 
 import BookItem from './components/BookItem';
+import Pagination from './components/Pagination';
 import Details from './components/Details';
 import Preloader from './common/Preloader';
 import { Form, FormControl, Button } from 'react-bootstrap';
@@ -26,6 +27,7 @@ class App extends Component {
     const url = `https://www.googleapis.com/books/v1/volumes?q=javascript&key=${this.state.apiKey}`;
     const response = await fetch(url);
     const data = await response.json();
+    console.log('TOTAL ITEMS', data);
     this.setState({ data: data.items, loading: false });
   }
 
@@ -93,6 +95,9 @@ class App extends Component {
               />
               <Button type="submit">Submit</Button>
             </Form>
+            <div className="pagination">
+              <Pagination />
+            </div>
           </div>
 
           <div className="content">
