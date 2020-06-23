@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 
+import axios from 'axios';
 import BookItem from './components/BookItem';
 import Pagination from './components/Pagination';
 import Details from './components/Details';
 import Preloader from './common/Preloader';
 import { Form, FormControl, Button } from 'react-bootstrap';
-import axios from 'axios';
 import book_cover from './assets/book_cover.png';
-
 class App extends Component {
   constructor(props) {
     super(props);
